@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Higuruma Law</title>
+  <meta name="description" content="Request a free consultation with Higuruma Law & Associates. 24/7 emergency line for urgent criminal matters." />
+  <script>
+    (function () {
+      var t = localStorage.getItem("higuruma-theme");
+      if (t === "day" || t === "night") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">⚖</span>
+        <span>HIGURUMA <em>LAW</em></span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="practice.html">Practice Areas</a></li>
+          <li><a href="attorneys.html">Attorneys</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle day / night mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="nav-burger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= PAGE HERO ======= -->
+  <section class="page-hero">
+    <div class="hero-bg" style="background-image: url('images/attorney-hiromi.png');"></div>
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1 class="display-xl">State your case. <span class="gradient-text">Court is in session.</span></h1>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT ======= -->
+  <section class="section">
+    <div class="container contact-grid">
+
+      <div class="card form-card reveal">
+        <h2 class="display-md" style="margin-bottom: 8px;">Free case review</h2>
+        <p class="lead" style="font-size: 0.95rem; margin-bottom: 28px;">Fill this in and counsel responds within 24 hours. Everything you write is confidential and protected.</p>
+
+        <form id="consult-form" class="form-grid">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" type="text" placeholder="Your full name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@email.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" placeholder="+81 90-0000-0000" />
+          </div>
+          <div class="field">
+            <label for="area">Matter type</label>
+            <select id="area" required>
+              <option value="" disabled selected>Select an area</option>
+              <option>Criminal Defense</option>
+              <option>Civil Litigation</option>
+              <option>Corporate Counsel</option>
+              <option>Family Law</option>
+              <option>Appeals & Post-Conviction</option>
+              <option>Digital & IP Law</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="message">Tell us what happened</label>
+            <textarea id="message" rows="6" placeholder="Confront all the facts — the more detail, the faster we can help." required></textarea>
+          </div>
+          <div class="field full">
+            <button type="submit" class="btn btn-primary" style="justify-content:center; width:100%;">Submit for review</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="info-stack">
+        <div class="card info-card reveal">
+          <div class="card-icon">☎</div>
+          <div>
+            <h3>24/7 Emergency Line</h3>
+            <p>Arrested or being questioned? Call before you say anything.<br /><a href="tel:+81312345678" style="color:var(--gold); font-weight:600;">+81 3-1234-5678</a></p>
+          </div>
+        </div>
+        <div class="card info-card reveal">
+          <div class="card-icon">✉</div>
+          <div>
+            <h3>Email</h3>
+            <p>General inquiries and document submissions.<br /><a href="mailto:counsel@higurumalaw.com" style="color:var(--gold); font-weight:600;">counsel@higurumalaw.com</a></p>
+          </div>
+        </div>
+        <div class="card info-card reveal">
+          <div class="card-icon">◉</div>
+          <div>
+            <h3>The Office</h3>
+            <p>1-7 Kasumigaseki, Chiyoda City<br />Tokyo 100-0013, Japan</p>
+          </div>
+        </div>
+        <div class="card info-card reveal">
+          <div class="card-icon">☾</div>
+          <div>
+            <h3>Hours</h3>
+            <p>Mon–Fri 09:00–19:00 · Sat 10:00–15:00<br />Emergency counsel: always awake.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= REASSURANCE ======= -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="verdict reveal">
+        <div class="verdict-bg" style="background-image: url('images/scales-still.png');"></div>
+        <blockquote>"Silence is your right. Counsel is your weapon."</blockquote>
+        <cite>— Know your rights</cite>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand">
+            <span class="brand-mark">⚖</span>
+            <span>HIGURUMA <em>LAW</em></span>
+          </a>
+          <p class="about-line">Relentless defense and fair judgment for everyone the system counted out.</p>
+        </div>
+        <div>
+          <h4>Firm</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="attorneys.html">Attorneys</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Practice</h4>
+          <ul>
+            <li><a href="practice.html">Criminal Defense</a></li>
+            <li><a href="practice.html">Civil Litigation</a></li>
+            <li><a href="practice.html">Corporate Counsel</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+81312345678">+81 3-1234-5678</a></li>
+            <li><a href="mailto:counsel@higurumalaw.com">counsel@higurumalaw.com</a></li>
+            <li><a href="contact.html">1-7 Kasumigaseki, Tokyo</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Higuruma Law &amp; Associates. All rights reserved.</span>
+        <span>Attorney advertising. Prior results do not guarantee a similar outcome.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
