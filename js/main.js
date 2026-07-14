@@ -27,9 +27,29 @@
   if (burger && navLinks) {
     burger.addEventListener("click", () => navLinks.classList.toggle("open"));
     navLinks.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => navLinks.classList.remove("open"))
+      a.addEventListener("click", (e) => {
+        const parent = a.parentElement;
+        if (parent && parent.classList.contains("has-dropdown") && a.getAttribute("href") === "#") {
+          e.preventDefault();
+          parent.classList.toggle("open");
+          return;
+        }
+        navLinks.classList.remove("open");
+      })
     );
   }
+
+  // ---- newsletter (demo) ----
+  document.querySelectorAll(".newsletter").forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button");
+      if (btn) {
+        btn.textContent = "Subscribed";
+        btn.disabled = true;
+      }
+    });
+  });
 
   // ---- scroll reveal ----
   const observer = new IntersectionObserver(
@@ -137,14 +157,148 @@
   // hide overlay when page is restored from back/forward cache
   window.addEventListener("pageshow", () => overlay.classList.remove("active"));
 
-  // ---- contact form (demo only) ----
-  const form = document.querySelector("#consult-form");
-  if (form) {
+  // ---- contact / registration forms (demo only) ----
+  document.querySelectorAll("#consult-form, #hero-register-form").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const btn = form.querySelector("button[type=submit]");
-      btn.textContent = "Verdict: We'll be in touch within 24h";
+      if (!btn) return;
+      btn.textContent = form.id === "hero-register-form"
+        ? "Registered — we'll contact you within 24h"
+        : "Verdict: We'll be in touch within 24h";
       btn.disabled = true;
+    });
+  });
+
+  // ---- news portal: search + tags ----
+  const newsList = document.querySelector("#news-list");
+  if (newsList) {
+    const items = Array.from(newsList.querySelectorAll(".news-item"));
+    const empty = document.querySelector("#news-empty");
+    const searchInput = document.querySelector("#news-search-input");
+    const searchForm = document.querySelector("#news-search-form");
+    const tagButtons = document.querySelectorAll("[data-news-tag]");
+    let activeTag = "all";
+
+    const applyFilter = () => {
+      const q = (searchInput?.value || "").trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const text = item.textContent.toLowerCase();
+        const tags = (item.dataset.tags || "").toLowerCase();
+        const matchTag = activeTag === "all" || tags.split(/\s+/).includes(activeTag);
+        const matchQuery = !q || text.includes(q);
+        const show = matchTag && matchQuery;
+        item.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (empty) empty.classList.toggle("show", visible === 0);
+    };
+
+    if (searchForm) {
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        applyFilter();
+      });
+    }
+    if (searchInput) searchInput.addEventListener("input", applyFilter);
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeTag = btn.dataset.newsTag;
+        tagButtons.forEach((b) => b.classList.toggle("active", b === btn));
+        applyFilter();
+      });
+    });
+  }
+
+  // ---- news detail: like + comments ----
+  const likeBtn = document.querySelector("#like-btn");
+  if (likeBtn) {
+    const countEl = document.querySelector("#like-count");
+    const storageKey = "higuruma-like-" + (likeBtn.dataset.articleId || "default");
+    let liked = localStorage.getItem(storageKey) === "1";
+    let count = parseInt(likeBtn.dataset.likes || "128", 10);
+    if (liked) count += 1;
+
+    const renderLike = () => {
+      likeBtn.classList.toggle("liked", liked);
+      likeBtn.setAttribute("aria-pressed", liked ? "true" : "false");
+      if (countEl) countEl.textContent = count + " likes";
+    };
+    renderLike();
+
+    likeBtn.addEventListener("click", () => {
+      liked = !liked;
+      count += liked ? 1 : -1;
+      localStorage.setItem(storageKey, liked ? "1" : "0");
+      renderLike();
+    });
+  }
+
+  const commentForm = document.querySelector("#comment-form");
+  const commentsList = document.querySelector("#comments-list");
+  if (commentForm && commentsList) {
+    const articleId = commentForm.dataset.articleId || "default";
+    const storageKey = "higuruma-comments-" + articleId;
+
+    const loadComments = () => {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey) || "[]");
+      } catch {
+        return [];
+      }
+    };
+
+    const saveComments = (list) => {
+      localStorage.setItem(storageKey, JSON.stringify(list));
+    };
+
+    const escapeHtml = (str) =>
+      String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const renderComment = (item) => {
+      const el = document.createElement("article");
+      el.className = "comment-item";
+      el.innerHTML = `
+        <header>
+          <strong>${escapeHtml(item.name)}</strong>
+          <time>${escapeHtml(item.date)}</time>
+        </header>
+        <p>${escapeHtml(item.message)}</p>`;
+      return el;
+    };
+
+    loadComments().forEach((c) => commentsList.prepend(renderComment(c)));
+
+    commentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = commentForm.querySelector("[name=name]").value.trim();
+      const email = commentForm.querySelector("[name=email]").value.trim();
+      const message = commentForm.querySelector("[name=message]").value.trim();
+      if (!name || !message) return;
+
+      const item = {
+        name,
+        email,
+        message,
+        date: new Date().toLocaleString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      const list = loadComments();
+      list.push(item);
+      saveComments(list);
+      commentsList.prepend(renderComment(item));
+      commentForm.reset();
     });
   }
 })();
