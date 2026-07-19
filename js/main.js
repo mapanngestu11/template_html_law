@@ -1,10 +1,10 @@
-// ============================================
-// HIGURUMA LAW — theme toggle, nav, animations
+﻿// ============================================
+// Meridian Law — theme toggle, nav, animations
 // ============================================
 
 (function () {
   const root = document.documentElement;
-  const STORAGE_KEY = "higuruma-theme";
+  const STORAGE_KEY = "meridian-theme";
 
   // ---- theme: restore saved preference (night is default) ----
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -216,7 +216,7 @@
   const likeBtn = document.querySelector("#like-btn");
   if (likeBtn) {
     const countEl = document.querySelector("#like-count");
-    const storageKey = "higuruma-like-" + (likeBtn.dataset.articleId || "default");
+    const storageKey = "meridian-like-" + (likeBtn.dataset.articleId || "default");
     let liked = localStorage.getItem(storageKey) === "1";
     let count = parseInt(likeBtn.dataset.likes || "128", 10);
     if (liked) count += 1;
@@ -240,7 +240,7 @@
   const commentsList = document.querySelector("#comments-list");
   if (commentForm && commentsList) {
     const articleId = commentForm.dataset.articleId || "default";
-    const storageKey = "higuruma-comments-" + articleId;
+    const storageKey = "meridian-comments-" + articleId;
 
     const loadComments = () => {
       try {
